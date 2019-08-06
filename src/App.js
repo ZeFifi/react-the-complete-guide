@@ -15,7 +15,8 @@ class App extends Component {
                     name: "Sylvie",
                     age: 30
                 }
-            ]
+            ],
+            isVisible: false
         }
     }
 
@@ -47,24 +48,35 @@ class App extends Component {
                 }
             ]
         })
-    }
+    };
+
+    toggleNames = () => {
+      this.setState({
+          isVisible : !this.state.isVisible
+      })
+    };
 
   render() {
     return (
         <div className="App">
           <h1>Hello people!</h1>
-          <Person
-              name={this.state.people[0].name}
-              age={this.state.people[0].age}
-              click={this.changeNamesHandler}
-              edit={this.editNamesHandler}
-              placeholder={this.state.people[0].name}
-          />
-          <Person
-              name={this.state.people[1].name}
-              age={this.state.people[1].age}
-          />
+            { this.state.isVisible ?
+                <div className="people">
+                <Person
+                    name={this.state.people[0].name}
+                    age={this.state.people[0].age}
+                    click={this.changeNamesHandler}
+                    edit={this.editNamesHandler}
+                    placeholder={this.state.people[0].name}
+                />
+                <Person
+                    name={this.state.people[1].name}
+                    age={this.state.people[1].age}
+                />
+            </div> : null
+            }
           <button onClick={this.changeNamesHandler}>Change names</button>
+          <button onClick={this.toggleNames}>Make names visible</button>
         </div>
     );
   }
