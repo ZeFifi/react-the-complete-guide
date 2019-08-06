@@ -14,6 +14,10 @@ class App extends Component {
                 {
                     name: "Sylvie",
                     age: 30
+                },
+                {
+                    name: "Hervé",
+                    age: 31
                 }
             ],
             isVisible: false
@@ -57,28 +61,28 @@ class App extends Component {
     };
 
   render() {
-      let people = null;
+      let cards = null;
       if(this.state.isVisible) {
-           people = (
+           cards = (
               <div className="people">
-                  <Person
-                      name={this.state.people[0].name}
-                      age={this.state.people[0].age}
-                      click={this.changeNamesHandler}
-                      edit={this.editNamesHandler}
-                      placeholder={this.state.people[0].name}
-                  />
-                  <Person
-                      name={this.state.people[1].name}
-                      age={this.state.people[1].age}
-                  />
+                  {
+                      this.state.people.map((person, index) => {
+                      return <Person key={index}
+                          name={person.name}
+                          age={person.age}
+                          click={this.changeNamesHandler}
+                          edit={this.editNamesHandler}
+                          placeholder={person.name}
+                      />
+                  })
+                  }
               </div>
           )
       }
     return (
         <div className="App">
           <h1>Hello people!</h1>
-            {people}
+            {cards}
             <button onClick={this.changeNamesHandler}>Change names</button>
             <button onClick={this.toggleNames}>Make names visible</button>
         </div>
