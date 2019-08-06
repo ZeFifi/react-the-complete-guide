@@ -24,40 +24,16 @@ class App extends Component {
         }
     }
 
-    changeNamesHandler = () => {
-        this.setState({
-            people : [
-                {
-                    name: "Philip",
-                    age: 31
-                },
-                {
-                    name: "Sylvia",
-                    age: 30
-                }
-            ]
-        })
-    };
-
-    editNamesHandler = (event) => {
-        this.setState({
-            people : [
-                {
-                    name: event.target.value,
-                    age: 31
-                },
-                {
-                    name: "Sylvia",
-                    age: 30
-                }
-            ]
-        })
-    };
-
     toggleNames = () => {
       this.setState({
           isVisible : !this.state.isVisible
       })
+    };
+
+    deleteHandler = (index) => {
+        const person = [...this.state.people];
+        person.splice(index, 1)
+        this.setState({people: person})
     };
 
   render() {
@@ -70,8 +46,7 @@ class App extends Component {
                       return <Person key={index}
                           name={person.name}
                           age={person.age}
-                          click={this.changeNamesHandler}
-                          edit={this.editNamesHandler}
+                          click={() => this.deleteHandler(index)}
                           placeholder={person.name}
                       />
                   })
@@ -83,7 +58,6 @@ class App extends Component {
         <div className="App">
           <h1>Hello people!</h1>
             {cards}
-            <button onClick={this.changeNamesHandler}>Change names</button>
             <button onClick={this.toggleNames}>Make names visible</button>
         </div>
     );
