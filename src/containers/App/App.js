@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import './App.css';
-import Person from "./components/Person/Person";
+import Person from "../../components/Persons/Person/Person"
+import Persons from "../../components/Persons/Persons";
+import Cockpit from "../../components/Cockpit/Cockpit";
 
 class App extends Component {
     constructor(props) {
@@ -59,7 +61,7 @@ class App extends Component {
 
     deleteHandler = (index) => {
         const person = [...this.state.people];
-        person.splice(index, 1)
+        person.splice(index, 1);
         this.setState({people: person})
     };
 
@@ -68,26 +70,14 @@ class App extends Component {
       if(this.state.isVisible) {
            cards = (
               <div className="people">
-                  {
-                      this.state.people.map((person, id) => {
-                      return <Person
-                          key={person.id}
-                          name={person.name}
-                          age={person.age}
-                          click={() => this.deleteHandler(id)}
-                          placeholder={person.name}
-                          edit={(event) => this.editNamesHandler(event, person.id)}
-                      />
-                  })
-                  }
+                  <Persons people={this.state.people} click={this.deleteHandler} edit={this.editNamesHandler}/>
               </div>
           )
       }
     return (
         <div className="App">
-          <h1>Hello people!</h1>
+            <Cockpit toggle={this.toggleNames}/>
             {cards}
-            <button onClick={this.toggleNames}>Make names visible</button>
         </div>
     );
   }
